@@ -4,7 +4,7 @@ const MODERN_ACTIVITY= 15;
 const HALF_LIFE_PERIOD= 5730;
 
 module.exports = function dateSample(sampleActivity) {
-  if (((typeof(sampleActivity)) !== 'string') sampleActivity <= 0 || sampleActivity > 15) return false;
+  if (((typeof(sampleActivity)) !== 'string')|| sampleActivity <= 0 || sampleActivity > 15) return false;
   let num = (+(sampleActivity));
   if (isFinite(num) !== true) return false;
 	const LOG = Math.log(2);
