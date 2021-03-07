@@ -2,31 +2,30 @@ const CustomError = require("../extensions/custom-error");
 
 module.exports = function repeater(str, options) {
   str = str + '';
-  let separator, additionSeparator, repeatTimes, addition, additionRepeatTimes;
   let result = [];
   result[0] = str;
-  for (let option in options) {
-    if (!(repeatTimes in options)) {repeatTimes = 1} else {repeatTimes = options[repeatTimes]}
-    if (!(separator in options)) {separator = '+'} else {separator = options[separator]}
-    if (!(addition in options)) {addition = ''} else {addition = options[addition]}
-    if (!(additionRepeatTimes in options)) {additionRepeatTimes = 1} else {additionRepeatTimes = options[additionRepeatTimes]}
-    if (!(additionSeparator in options)) {additionSeparator = '|'} else {additionSeparator = options[additionSeparator]}
-  }
-  let counter = repeatTimes;
+    if (options.repeatTimes === undefined) options.repeatTimes = 1;
+    if (options.separator === undefined) options.separator = '+';
+    if (options.addition === undefined) options.addition = '';
+    if (options.additionRepeatTimes === undefined) options.additionRepeatTimes = 1;
+    if (options.additionSeparator === undefined) options.additionSeparator = '|';
+  let counter = options.repeatTimes - 1;
   let tmparr = [];
-  tmparr[0] = addition;
-  for (let i = 0; i < additionRepeatTimes; i++) {
-    if (i !== additionRepeatTimes - 1) {
-      tmparr.push(additionSeparator);
-      tmparr.push(addition);
+  tmparr[0] = String(options.addition);
+  for (let i = 0; i < options.additionRepeatTimes; i++) {
+    if (i !== options.additionRepeatTimes - 1) {
+      tmparr.push(options.additionSeparator);
+      tmparr.push(String(options.addition));
     }
   }
   let addition_union = tmparr.join('');
   while (counter) {
     result.push(addition_union);
-    result.push(separator);
+    result.push(options.separator);
+    result.push(str);
     counter -= 1;
   }
+  result.push(addition_union);
   return result.join('');
 
 };
